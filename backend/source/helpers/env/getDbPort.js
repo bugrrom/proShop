@@ -7,9 +7,5 @@ export const getDbPort = () => {
         throw new ValidationError('Environment variable DB_PORT should be specified');
     }
 
-    if (typeof parseInt(DB_PORT, 10) !== 'number') {
-        throw new ValidationError('Environment variable DB_PORT should be a string');
-    }
-
     return DB_PORT;
 };

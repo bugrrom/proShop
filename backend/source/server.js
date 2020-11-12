@@ -49,8 +49,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 */
 
-app.use(helmet());
-app.use(cors());
 
 app.use(
     bodyParser.json({
@@ -71,16 +69,23 @@ if (process.env.NODE_ENV === 'development') {
         next();
     });
 }
-
-app.get('/', (req, res) => {
-    res.status(200).send("welcome!")
-})
 app.use('/api/product', product)
 app.use('/api/user', user)
 app.use('/api/order', order)
 app.use('/api/upload', upload)
-app.use('/uploads', express.static(path.join(path.resolve(), '/uploads')))
+const __dirname = path.resolve()
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '/frontend/build')))
 
+    app.get('*', (req, res) =>
+        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+    )
+} else {
+    app.get('/', (req, res) => {
+        res.send('API is running....')
+    })
+}
 app.use('*', (req, res, next) => {
     const error = new NotFoundError(
         `Can not find right route for method ${req.method} and path ${req.originalUrl}`,
@@ -88,6 +93,7 @@ app.use('*', (req, res, next) => {
     );
     next(error);
 });
+
 
 if (process.env.NODE_ENV !== 'test') {
     // eslint-disable-next-line no-unused-vars
