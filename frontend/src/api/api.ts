@@ -6,7 +6,6 @@ export class apiFetch {
   constructor(token?: string, data?: any) {
     this.token = token;
     this.data = data;
-    this.url = "http://localhost:4000/";
   }
 
   getUrl() {
@@ -64,7 +63,7 @@ export class apiFetch {
         );
         return data;
       }
-      const data = await fetch(`${this.getUrl()}${url}`);
+      const data = await fetch(`${url}`);
       return data;
     } catch (e) {
       console.log(e);
@@ -80,7 +79,7 @@ export class apiFetch {
         );
         return data;
       }
-      const data = await fetch(`${this.getUrl()}${url}`);
+      const data = await fetch(`${url}`);
       return data;
     } catch (e) {
       console.log(e);
@@ -96,7 +95,7 @@ export class apiFetch {
         );
         return data;
       }
-      const data = await fetch(`${this.getUrl()}${url}`);
+      const data = await fetch(`${url}`);
       return data;
     } catch (e) {
       console.log(e);
@@ -112,7 +111,7 @@ export class apiFetch {
         );
         return data;
       }
-      const data = await fetch(`${this.getUrl()}${url}`);
+      const data = await fetch(`${url}`);
       return data;
     } catch (e) {
       console.log(e);
